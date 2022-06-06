@@ -1,0 +1,96 @@
+<html>
+<body>
+    <h1 style="text-align: center;">REGISTRATION FORM</h1>
+    <form name="RegForm" action="EXP_7_2.php" method="post">
+    
+    
+    <label for="fname">First Name</label>
+    <input type="text" id="fname" name="firstname" value="" placeholder="Your first name..">
+    
+    
+    <label for="lname">Last Name</label>
+    <input type="text" id="lname" name="lastname" value="" placeholder="Your last name..">
+    
+    
+    
+    
+    
+    
+    name="gender">
+    
+    <label for="gender">Gender</label>
+    <select type="text" id="gender" value=""
+    
+    <option>Male</option>
+    <option>Female</option>
+    <option>Prefer not to say</option>
+    </select>
+    
+    
+    <label for="country">Country</label>
+    <select id="country" name="country" value="">
+    <option value="India">India</option>
+    <option value="canada">Canada</option>
+    
+    <option value="usa">USA</option>
+    </select>
+    
+    
+    <label for="phone">Enter your phone number:</label>
+    <input type="tel" id="phone" name="phone" value="">
+    
+    
+    
+    
+    
+    
+    value="">
+    
+    <label for="email">Enter your email:</label>
+    <input type="email" id="email" name="email"
+    
+    
+    
+    <input type="submit" value="Submit" name="Submit" >
+    
+    
+    </form>
+    </body>
+    </html>
+    Database Connection Using PHP:
+    <?php
+    
+    
+    $con = mysqli_connect("localhost", "root", "", "web") or die(mysqli_error($con));
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $gender = $_POST['gender'];
+    $country = $_POST['country'];
+    
+    
+    if ( empty($firstname) || empty($lastname) || empty($email) || empty($phone) || empty($gender) || empty($country)) {
+    echo "All fields are required <br/> Please enter all
+    fields";
+    }
+    else{
+    
+    $user_registration_query = "insert into signup (firstname, lastname, email, phone, gender, country) values ('$firstname', '$lastname', '$email', '$phone', '$gender', '$country')";
+    
+    
+    $user_registration_submit = mysqli_query($con,
+    $user_registration_query) or die(mysqli_error($con));
+    
+    
+    $select_query= "SELECT * FROM signup WHERE firstname='$firstname'";
+    
+    
+    $select_query_result=mysqli_query($con, $select_query) or die(mysqli_error($con));
+    $row=mysqli_fetch_array($select_query_result);
+    
+    
+    echo $row['firstname']."<br/>"; echo $row['lastname']."<br/>"; echo $row['email']."<br/>";
+    echo $row['phone']."<br/>"; echo $row['gender']."<br/>"; echo $row['country']."<br/>";
+    }
+    ?>
